@@ -6,7 +6,7 @@
 /*   By: nkiefer <nkiefer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:01:50 by nkiefer           #+#    #+#             */
-/*   Updated: 2025/03/03 17:50:42 by nkiefer          ###   ########.fr       */
+/*   Updated: 2025/05/05 19:16:46 by nkiefer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	read_map(const char *filename, t_game *game)
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		handle_error("Erreur d'ouverture de fichier", NULL, 0, -1);
+	count = 0;
 	temp = read_lines(fd, &count);
 	close(fd);
 	if (count == 0 || temp == NULL)

@@ -6,7 +6,7 @@
 /*   By: nkiefer <nkiefer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:56:32 by nkiefer           #+#    #+#             */
-/*   Updated: 2025/03/07 14:52:23 by nkiefer          ###   ########.fr       */
+/*   Updated: 2025/05/05 18:54:04 by nkiefer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ void	free_resources(t_game *game)
 	free_game_textures(game);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
 }
 
 void	handle_error(char *message, char **map, int rows, int fd)

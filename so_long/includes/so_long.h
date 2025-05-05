@@ -6,7 +6,7 @@
 /*   By: nkiefer <nkiefer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 14:20:30 by nkiefer           #+#    #+#             */
-/*   Updated: 2025/03/07 15:33:46 by nkiefer          ###   ########.fr       */
+/*   Updated: 2025/05/05 18:23:21 by nkiefer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,12 @@ typedef struct s_game
 	int		move_count;		// Compteur de mouvements
 }			t_game;
 
+typedef struct s_floodtrack
+{
+	int		count_c;
+	int		found_exit;
+}			t_floodtrack;
+
 typedef struct s_render_info
 {
 	// Données de la texture source
@@ -135,9 +141,9 @@ int			validate_map(t_game *game);
 int			check_accessibility(t_game *game);
 int			check_walls(t_game *game);
 
-void		validate_collectible(int collectible_found);
-void		validate_exit(int exit_found);
-void		validate_player(int player_found);
+int		validate_collectible(int collectible_found);
+int		validate_exit(int exit_found);
+int		validate_player(int player_found);
 int			count_elements(t_game *game, int *playerCount, int *exitCount,
 				int *collectibleCount);
 
@@ -164,6 +170,6 @@ void		free_resources(t_game *game);
 void		handle_error(char *message, char **map, int rows, int fd);
 /* map util */
 char		**copy_map(char **grid, int rows, int cols);
-void		ft_floodfill(t_game *game, char **map, t_point start, int *count_c);
+void		ft_floodfill(t_game *game, char **map, t_point start, t_floodtrack *track);
 
 #endif

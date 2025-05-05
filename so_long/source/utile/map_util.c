@@ -6,32 +6,41 @@
 /*   By: nkiefer <nkiefer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:59:00 by nkiefer           #+#    #+#             */
-/*   Updated: 2025/03/07 14:52:23 by nkiefer          ###   ########.fr       */
+/*   Updated: 2025/05/05 18:28:05 by nkiefer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/so_long.h"
-
-static void	ft_fill(t_game *game, char **map, t_point pos, int *count_c)
+static void	ft_fill(t_game *game, char **map, t_point pos, t_floodtrack *track)
 {
 	if (pos.x < 0 || pos.x >= game->cols || pos.y < 0 || pos.y >= game->rows)
 		return ;
-	if (map[pos.y][pos.x] == '1' || map[pos.y][pos.x] == 'E'
-		|| map[pos.y][pos.x] == 'v')
+	if (map[pos.y][pos.x] == '1' || map[pos.y][pos.x] == 'v')
 		return ;
+
 	if (map[pos.y][pos.x] == COLLECTIBLE)
-		(*count_c)++;
-	map[pos.y][pos.x] = 'v';
-	ft_fill(game, map, (t_point){pos.x + 1, pos.y}, count_c);
-	ft_fill(game, map, (t_point){pos.x - 1, pos.y}, count_c);
-	ft_fill(game, map, (t_point){pos.x, pos.y + 1}, count_c);
-	ft_fill(game, map, (t_point){pos.x, pos.y - 1}, count_c);
+		track->count_c++;
+
+	if (map[pos.y][pos.x] == 'E')
+	{
+		track->found_exit = 1;
+		return ; // On ne va pas plus loin depuis E
+	}
+
+	map[pos.y][pos.x] = 'v'; // Visité
+
+	ft_fill(game, map, (t_point){pos.x + 1, pos.y}, track);
+	ft_fill(game, map, (t_point){pos.x - 1, pos.y}, track);
+	ft_fill(game, map, (t_point){pos.x, pos.y + 1}, track);
+	ft_fill(game, map, (t_point){pos.x, pos.y - 1}, track);
 }
 
-void	ft_floodfill(t_game *game, char **map, t_point start, int *count_c)
+
+void	ft_floodfill(t_game *game, char **map, t_point start, t_floodtrack *track)
 {
-	ft_fill(game, map, start, count_c);
+	ft_fill(game, map, start, track);
 }
+
 
 char	**copy_map(char **grid, int rows, int cols)
 {

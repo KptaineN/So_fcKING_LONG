@@ -6,7 +6,7 @@
 /*   By: nkiefer <nkiefer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:02:35 by nkiefer           #+#    #+#             */
-/*   Updated: 2025/03/03 17:50:42 by nkiefer          ###   ########.fr       */
+/*   Updated: 2025/05/05 18:06:50 by nkiefer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,30 +57,32 @@ int	count_elements(t_game *game, int *playerCount, int *exitCount,
 	game->collectibles = *collectibleCount;
 	return (1);
 }
-
-void	validate_player(int player_found)
+int	validate_player(int player_found)
 {
 	if (player_found != 1)
 	{
 		write(2, "Erreur: La map doit contenir exactement un joueur.\n", 52);
-		exit(EXIT_FAILURE);
+		return (0);
 	}
+	return (1);
 }
 
-void	validate_exit(int exit_found)
+int	validate_exit(int exit_found)
 {
 	if (exit_found != 1)
 	{
 		write(2, "Erreur: La map doit contenir exactement une sortie.\n", 53);
-		exit(EXIT_FAILURE);
+		return (0);
 	}
+	return (1);
 }
 
-void	validate_collectible(int collectible_found)
+int	validate_collectible(int collectible_found)
 {
 	if (collectible_found < 1)
 	{
 		write(2, "Erreur: La map doit contenir au moins un collectible.\n", 55);
-		exit(EXIT_FAILURE);
+		return (0);
 	}
+	return (1);
 }
