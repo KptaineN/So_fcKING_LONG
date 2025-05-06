@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_movement.c                                  :+:      :+:    :+:   */
+/*   player_mouvement.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkiefer <nkiefer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:45:27 by nkiefer           #+#    #+#             */
-/*   Updated: 2025/03/07 15:01:57 by nkiefer          ###   ########.fr       */
+/*   Updated: 2025/05/06 17:28:37 by nkiefer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ static void	handle_player_interaction(t_game *game, int new_x, int new_y)
 	{
 		if (game->collectibles == 0)
 		{
-			ft_printf("Bravo ! Tu as trouvé la sortie !\n");
+			ft_printf("Congratulations! You found the exit!\n");
 			exit_game(game);
 		}
 		else
-			ft_printf("Il te reste encore %d collectibles à collecter.\n",
+			ft_printf("You still have %d collectibles to collect.\n",
 				game->collectibles);
 		return ;
 	}
@@ -48,7 +48,7 @@ static void	handle_player_interaction(t_game *game, int new_x, int new_y)
 	{
 		game->collectibles--;
 		game->grid[new_y][new_x] = EMPTY;
-		ft_printf("Collectible récupéré ! Il en reste %d\n",
+		ft_printf("Collectible collected! %d remaining\n",
 			game->collectibles);
 	}
 }
@@ -68,7 +68,7 @@ static void	move_player(t_game *game, int dx, int dy)
 		return ;
 	update_player_position(game, new_x, new_y);
 	game->move_count++;
-	ft_printf("Nombre de mouvements : %d\n", game->move_count);
+	ft_printf("Numbre of mouvements : %d\n", game->move_count);
 }
 
 int	key_press(int keycode, t_game *game)

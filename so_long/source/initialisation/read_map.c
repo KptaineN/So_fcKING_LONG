@@ -6,7 +6,7 @@
 /*   By: nkiefer <nkiefer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:01:50 by nkiefer           #+#    #+#             */
-/*   Updated: 2025/05/05 19:16:46 by nkiefer          ###   ########.fr       */
+/*   Updated: 2025/05/06 17:30:19 by nkiefer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**append_line(char **temp, char *line, int *count, int fd)
 	i = 0;
 	new_temp = malloc(sizeof(char *) * (*count + 2));
 	if (!new_temp)
-		handle_error("Erreur malloc", temp, *count, fd);
+		handle_error("Error\n malloc", temp, *count, fd);
 	while (i < *count)
 	{
 		new_temp[i] = temp[i];
@@ -62,7 +62,7 @@ char	**read_lines(int fd, int *count)
 		if (len == 0 || line[0] == '\n')
 		{
 			free(line);
-			handle_error("Erreur : Ligne vide détectée", temp, *count, fd);
+			handle_error("Error\nLigne empty detected", temp, *count, fd);
 		}
 		if (len > 0 && line[len - 1] == '\n')
 			line[len - 1] = '\0';
@@ -81,16 +81,16 @@ void	read_map(const char *filename, t_game *game)
 	fd = -1;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		handle_error("Erreur d'ouverture de fichier", NULL, 0, -1);
+		handle_error("Error\ntry to open file", NULL, 0, -1);
 	count = 0;
 	temp = read_lines(fd, &count);
 	close(fd);
 	if (count == 0 || temp == NULL)
-		handle_error("Erreur : Map vide ou illisbile.", temp, count, -1);
+		handle_error("Error\nMap empty or illisible.", temp, count, -1);
 	game->rows = count;
 	game->cols = ft_strlen(temp[0]);
 	if (!is_rectangular(temp, game->rows, game->cols))
-		handle_error("Erreur : La map n'est pas rectangulaire.", temp, count,
+		handle_error("Error\nMap not rectangulare.", temp, count,
 			-1);
 	game->grid = temp;
 }

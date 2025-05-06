@@ -6,41 +6,42 @@
 /*   By: nkiefer <nkiefer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:59:00 by nkiefer           #+#    #+#             */
-/*   Updated: 2025/05/05 18:28:05 by nkiefer          ###   ########.fr       */
+/*   Updated: 2025/05/06 11:12:25 by nkiefer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/so_long.h"
+
 static void	ft_fill(t_game *game, char **map, t_point pos, t_floodtrack *track)
 {
 	if (pos.x < 0 || pos.x >= game->cols || pos.y < 0 || pos.y >= game->rows)
 		return ;
 	if (map[pos.y][pos.x] == '1' || map[pos.y][pos.x] == 'v')
 		return ;
-
 	if (map[pos.y][pos.x] == COLLECTIBLE)
 		track->count_c++;
-
 	if (map[pos.y][pos.x] == 'E')
 	{
 		track->found_exit = 1;
-		return ; // On ne va pas plus loin depuis E
+		return ;
 	}
-
-	map[pos.y][pos.x] = 'v'; // Visité
-
+	map[pos.y][pos.x] = 'v';
 	ft_fill(game, map, (t_point){pos.x + 1, pos.y}, track);
 	ft_fill(game, map, (t_point){pos.x - 1, pos.y}, track);
 	ft_fill(game, map, (t_point){pos.x, pos.y + 1}, track);
 	ft_fill(game, map, (t_point){pos.x, pos.y - 1}, track);
 }
 
-
-void	ft_floodfill(t_game *game, char **map, t_point start, t_floodtrack *track)
+void	ft_floodfill(t_game *game, char **map, t_floodtrack *track)
 {
+	t_point	start;
+
+	start.x = track->start.x;
+	start.y = track->start.y;
+	track->count_c = 0;
+	track->found_exit = 0;
 	ft_fill(game, map, start, track);
 }
-
 
 char	**copy_map(char **grid, int rows, int cols)
 {

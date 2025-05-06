@@ -6,7 +6,7 @@
 /*   By: nkiefer <nkiefer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 08:22:45 by nkiefer           #+#    #+#             */
-/*   Updated: 2025/03/07 15:01:29 by nkiefer          ###   ########.fr       */
+/*   Updated: 2025/05/06 17:33:32 by nkiefer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	load_player_frames(t_game *game)
 		num = ft_itoa(i);
 		if (!num)
 		{
-			perror("Erreur : échec de ft_itoa");
+			perror("Error\nechec ft_itoa");
 			free_resources(game);
 			exit(EXIT_FAILURE);
 		}
@@ -49,7 +49,7 @@ static void	load_player_frames(t_game *game)
 		ft_strlcat(path, ".xpm", sizeof(path));
 		free(num);
 		load_texture(game, path, (void **)&game->player_frames[i],
-			"Erreur chargement frame player");
+			"Error\n loading player frame");
 		i++;
 	}
 }
@@ -57,17 +57,17 @@ static void	load_player_frames(t_game *game)
 void	load_textures(t_game *game)
 {
 	load_texture(game, "assets/wall/wall.xpm", (void **)&game->img_wall,
-		"Erreur de chargement de l'image des murs");
+		"Error\nloading the wall image");
 	load_texture(game, "assets/floor/floor.xpm", (void **)&game->img_floor,
-		"Erreur de chargement de l'image du sol");
+		"Error\nloading the floor image");
 	load_texture(game, "assets/collect/collect.xpm",
 		(void **)&game->img_collectible,
-		"Erreur de chargement de l'image des collectibles");
+		"Error\nloading the collectible image");
 	load_texture(game, "assets/exit/close/exitc.xpm",
 		(void **)&game->img_exit_close,
-		"Erreur de chargement de l'image de la sortie");
+		"Error\nloading the closed exit image");
 	load_texture(game, "assets/exit/open/exito.xpm",
 		(void **)&game->img_exit_open,
-		"Erreur de chargement de l'image de la sortie ouverte");
+		"Error\nloading the open exit image");
 	load_player_frames(game);
 }

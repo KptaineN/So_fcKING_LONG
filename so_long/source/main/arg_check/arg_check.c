@@ -6,7 +6,7 @@
 /*   By: nkiefer <nkiefer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:00:00 by nkiefer           #+#    #+#             */
-/*   Updated: 2025/03/03 17:50:42 by nkiefer          ###   ########.fr       */
+/*   Updated: 2025/05/06 17:26:10 by nkiefer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	check_open_file(char *arg)
 	fd = open(arg, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_printf("Erreur: Impossible d'ouvrir le fichier %s.\n", arg);
+		ft_printf("Error\nFail open file %s.\n", arg);
 		exit(EXIT_FAILURE);
 	}
 	close(fd);
@@ -29,18 +29,18 @@ int	arg_check(int argc, char **argv)
 {
 	if (argc != 2)
 	{
-		ft_printf("Erreur: Nombre d'arguments incorrect.\n");
+		ft_printf("Error\nWrong number of arguments\n");
 		ft_printf("Usage: %s <map_file.ber>\n", argv[0]);
 		return (EXIT_FAILURE);
 	}
 	if (ft_strlen(argv[1]) < 5)
 	{
-		ft_printf("Erreur: Le nom du fichier est trop court.\n");
+		ft_printf("Error\nFilename too short\n");
 		return (EXIT_FAILURE);
 	}
 	if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".ber", 4) != 0)
 	{
-		ft_printf("Erreur: Le fichier doit avoir l'extension .ber.\n");
+		ft_printf("Error\nFile must have .ber extension\n");
 		return (EXIT_FAILURE);
 	}
 	check_open_file(argv[1]);

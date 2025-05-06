@@ -6,7 +6,7 @@
 /*   By: nkiefer <nkiefer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:02:35 by nkiefer           #+#    #+#             */
-/*   Updated: 2025/05/05 18:06:50 by nkiefer          ###   ########.fr       */
+/*   Updated: 2025/05/06 17:29:23 by nkiefer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_char(char c, int *playerCount, int *exitCount,
 {
 	if (!ft_strchr("01CEP", c))
 	{
-		ft_printf("Erreur: Caractère invalide '%c' détecté dans la map.\n", c);
+		ft_printf("Error\nCharacter not valide '%c' détected in the map.\n", c);
 		return (0);
 	}
 	if (c == PLAYER)
@@ -57,11 +57,12 @@ int	count_elements(t_game *game, int *playerCount, int *exitCount,
 	game->collectibles = *collectibleCount;
 	return (1);
 }
+
 int	validate_player(int player_found)
 {
 	if (player_found != 1)
 	{
-		write(2, "Erreur: La map doit contenir exactement un joueur.\n", 52);
+		write(2, "Error\nMap need to content exactly one player.\n", 50);
 		return (0);
 	}
 	return (1);
@@ -71,7 +72,7 @@ int	validate_exit(int exit_found)
 {
 	if (exit_found != 1)
 	{
-		write(2, "Erreur: La map doit contenir exactement une sortie.\n", 53);
+		write(2, "Error\nMap need to conteny exacly one exit.\n", 50);
 		return (0);
 	}
 	return (1);
@@ -81,7 +82,7 @@ int	validate_collectible(int collectible_found)
 {
 	if (collectible_found < 1)
 	{
-		write(2, "Erreur: La map doit contenir au moins un collectible.\n", 55);
+		write(2, "Error\nMap need to content one or more collectible.\n", 54);
 		return (0);
 	}
 	return (1);

@@ -6,12 +6,11 @@
 /*   By: nkiefer <nkiefer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:01:30 by nkiefer           #+#    #+#             */
-/*   Updated: 2025/05/05 18:23:49 by nkiefer          ###   ########.fr       */
+/*   Updated: 2025/05/06 17:30:59 by nkiefer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/so_long.h"
-
 
 int	check_walls(t_game *game)
 {
@@ -23,7 +22,7 @@ int	check_walls(t_game *game)
 	{
 		if (game->grid[0][j] != WALL || game->grid[game->rows - 1][j] != WALL)
 		{
-			ft_printf("Erreur: map mal muré de haut en bas\n");
+			ft_printf("Error\nMap bad wall build from top and down\n");
 			return (0);
 		}
 		j++;
@@ -31,77 +30,61 @@ int	check_walls(t_game *game)
 	a = 0;
 	while (a < game->rows)
 	{
-		if (game->grid[a][0] != WALL || game->grid[a][game->cols - 1] != WALL)
+		if (game->grid[a][game->cols - 1] != WALL || game->grid[a][0] != WALL)
 		{
-			ft_printf("Erreur: map mal muré de gauche a droite.\n");
+			ft_printf("Error\n Map bad wall build from left and right.\n");
 			return (0);
 		}
 		a++;
 	}
 	return (1);
 }
+
+static int	validate_accessibility(t_game *game, t_floodtrack *track)
+{
+	if (track->count_c == game->collectibles && track->found_exit)
+		return (1);
+	ft_printf("Error\nNot acces to collectibles or exit.\n");
+	return (0);
+}
+
 int	check_accessibility(t_game *game)
 {
 	char			**map_copy;
-	t_point			start;
-	t_floodtrack	track;
+	t_floodtrack	flood_track;
 
-	start.x = game->player_x;
-	start.y = game->player_y;
-	track.count_c = 0;
-	track.found_exit = 0;
-
+	flood_track.count_c = 0;
+	flood_track.found_exit = 0;
+	flood_track.start.x = game->player_x;
+	flood_track.start.y = game->player_y;
 	map_copy = copy_map(game->grid, game->rows, game->cols);
 	if (!map_copy)
-	{
-		ft_printf("Erreur : échec de la copie de la map.\n");
-		return (0);
-	}
-
-	ft_floodfill(game, map_copy, start, &track);
+		return (ft_printf("Error\nFail map copy.\n"), 0);
+	ft_floodfill(game, map_copy, &flood_track);
 	ft_free(map_copy, game->rows);
-
-	if (track.count_c != game->collectibles)
-	{
-		ft_printf("Erreur : %d collectible(s) pas accessible(s).\n",
-			game->collectibles - track.count_c);
-		return (0);
-	}
-	if (!track.found_exit)
-	{
-		ft_printf("Erreur : La sortie est inaccessible depuis le joueur.\n");
-		return (0);
-	}
-	return (1);
+	return (validate_accessibility(game, &flood_track));
 }
+
 int	validate_map(t_game *game)
 {
-	int	player_count;
-	int	exit_count;
-	int	collectible_count;
+	t_map_validation	validate;
 
 	if (!game->grid)
-	{
-		ft_printf("Erreur: La map est vide.\n");
+		return (ft_printf("Error\nMap empty.\n"), 0);
+	validate.player_count = 0;
+	validate.exit_count = 0;
+	validate.collectible_count = 0;
+	count_elements(game, &validate.player_count, &validate.exit_count,
+		&validate.collectible_count);
+	if (!validate_player(validate.player_count))
 		return (0);
-	}
-	player_count = 0;
-	exit_count = 0;
-	collectible_count = 0;
-	count_elements(game, &player_count, &exit_count, &collectible_count);
-
-	if (!validate_player(player_count))
+	if (!validate_exit(validate.exit_count))
 		return (0);
-	if (!validate_exit(exit_count))
-		return (0);
-	if (!validate_collectible(collectible_count))
+	if (!validate_collectible(validate.collectible_count))
 		return (0);
 	if (!check_walls(game))
 		return (0);
 	if (!check_accessibility(game))
-	{
-		ft_printf("Erreur: La sortie ou les collectibles ne sont pas accessibles depuis le joueur.\n");
 		return (0);
-	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: nkiefer <nkiefer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:55:02 by nkiefer           #+#    #+#             */
-/*   Updated: 2025/03/07 14:52:23 by nkiefer          ###   ########.fr       */
+/*   Updated: 2025/05/06 17:27:26 by nkiefer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*create_buffer_image(t_game *game)
 	height = game->rows * game->tile_size;
 	buffer = mlx_new_image(game->mlx, width, height);
 	if (!buffer)
-		perror("Erreur: impossible de créer l'image tampon");
+		perror("Error\nImpossible to create tampon image");
 	return (buffer);
 }
 
@@ -33,7 +33,7 @@ void	render_move_count(t_game *game)
 	nbr_str = ft_itoa(game->move_count);
 	if (!nbr_str)
 	{
-		perror("Erreur : échec de ft_itoa");
+		perror("Error\nEchec ft_itoa");
 		free_resources(game);
 		exit(EXIT_FAILURE);
 	}
