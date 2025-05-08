@@ -56,6 +56,10 @@ void	free_game_textures(t_game *game)
 		mlx_destroy_image(game->mlx, game->img_exit_open);
 	if (game->img_enemy)
 		mlx_destroy_image(game->mlx, game->img_enemy);
+	if (game->img_lava)
+		mlx_destroy_image(game->mlx, game->img_lava);
+	if (game->img_magma)
+		mlx_destroy_image(game->mlx, game->img_magma);
 }
 
 void	free_resources(t_game *game)
