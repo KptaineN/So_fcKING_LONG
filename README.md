@@ -17,6 +17,7 @@ Ce projet consiste à développer un petit jeu en 2D en utilisant la miniLibX
 ✔️ Manipulation d'images,
 
 ✔️ Gestion des événements,
+
 ✨_____________________________________________________________________________________________________________✨ 
 
 
