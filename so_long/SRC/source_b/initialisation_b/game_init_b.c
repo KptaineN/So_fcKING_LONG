@@ -6,7 +6,7 @@
 /*   By: nkiefer <nkiefer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:20:34 by nkiefer           #+#    #+#             */
-/*   Updated: 2025/05/08 19:15:41 by nkiefer          ###   ########.fr       */
+/*   Updated: 2025/05/29 10:26:15 by nkiefer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	load_and_validate_map(t_game *game, char *map_path)
 	read_map(map_path, game);
 	if (!validate_map(game))
 	{
-		write(2, "Error\nmap is not valide.\n", 30);
+		write(2, "Error\nmap is not valide.\n", 26);
 		free_resources(game);
 		exit(EXIT_FAILURE);
 	}

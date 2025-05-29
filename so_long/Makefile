@@ -1,8 +1,10 @@
-NAME = so_long
+NAME_MANDATORY = so_long
+NAME_BONUS     = so_long_bonus
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CC      = gcc
+CFLAGS  = -Wall -Wextra -Werror -g -Iincludes
 
+# LIBRARIES
 LIBFT_DIR = includes/LIBFT
 LIBFT = $(LIBFT_DIR)/libft.a
 
@@ -16,7 +18,7 @@ RM = rm -f
 MAKE_LIBFT = $(MAKE) -C $(LIBFT_DIR)
 MAKE_MLX   = $(MAKE) -C $(MLX_DIR)
 
-# Fichiers obligatoires
+# Sources
 SRC_MANDATORY = \
 	SRC/source/main/main.c \
 	SRC/source/main/arg_check/arg_check.c \
@@ -32,7 +34,6 @@ SRC_MANDATORY = \
 	SRC/source/utile/error_util.c \
 	SRC/source/utile/map_util.c
 
-# Fichiers bonus
 SRC_BONUS = \
 	SRC/source_b/main_b/main_b.c \
 	SRC/source_b/main_b/arg_check_b/arg_check_b.c \
@@ -51,22 +52,34 @@ SRC_BONUS = \
 	SRC/source_b/enemy_b/enemy_b.c \
 	SRC/source_b/enemy_b/enemy_util_b.c
 
-# Objets
-OBJS_M = $(SRC_MANDATORY:.c=.o)
-OBJS_B = $(SRC_BONUS:.c=.o)
+OBJ_MANDATORY = $(SRC_MANDATORY:.c=.o)
+OBJ_BONUS     = $(SRC_BONUS:.c=.o)
 
-# Règles principales
-m: fclean $(NAME)
+BUILD_FLAG = .build_type
 
-b: fclean bonus
+all: check_mandatory $(LIBFT) $(MLX) $(NAME_MANDATORY)
 
-$(NAME): $(LIBFT) $(MLX) $(OBJS_M)
-	@echo "🔧 Compilation mandatory → $(NAME)"
-	$(CC) $(CFLAGS) $(OBJS_M) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(NAME)
+b: check_bonus $(LIBFT) $(MLX) $(NAME_BONUS)
 
-bonus: $(LIBFT) $(MLX) $(OBJS_B)
-	@echo "✨ Compilation bonus → $(NAME)"
-	$(CC) $(CFLAGS) $(OBJS_B) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(NAME)
+check_mandatory:
+	@if [ -f $(BUILD_FLAG) ] && grep -q BONUS $(BUILD_FLAG); then \
+		echo "\033[31m❌ Currently in BONUS mode. Run 'make fclean' first.\033[0m"; \
+		exit 1; \
+	fi
+	@echo MANDATORY > $(BUILD_FLAG)
+
+check_bonus:
+	@if [ -f $(BUILD_FLAG) ] && grep -q MANDATORY $(BUILD_FLAG); then \
+		echo "\033[31m❌ Currently in MANDATORY mode. Run 'make fclean' first.\033[0m"; \
+		exit 1; \
+	fi
+	@echo BONUS > $(BUILD_FLAG)
+
+$(NAME_MANDATORY): $(OBJ_MANDATORY)
+	$(CC) $(CFLAGS) $^ $(MLX_FLAGS) $(LIBFT_FLAGS) -o $@
+
+$(NAME_BONUS): $(OBJ_BONUS)
+	$(CC) $(CFLAGS) $^ $(MLX_FLAGS) $(LIBFT_FLAGS) -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -78,16 +91,16 @@ $(MLX):
 	$(MAKE_MLX)
 
 clean:
-	@echo "🧹 Suppression des fichiers objets..."
-	$(RM) $(OBJS_M) $(OBJS_B)
+	@echo "\033[33m🧹 Cleaning object files...\033[0m"
+	$(RM) $(OBJ_MANDATORY) $(OBJ_BONUS)
 	$(MAKE_LIBFT) clean || true
 	$(MAKE_MLX) clean || true
 
 fclean: clean
-	@echo "🗑️ Suppression de l’exécutable..."
-	$(RM) $(NAME)
+	@echo "\033[31m🗑️  Removing executables and flags...\033[0m"
+	$(RM) $(NAME_MANDATORY) $(NAME_BONUS) $(BUILD_FLAG)
 	$(MAKE_LIBFT) fclean || true
 
-re: fclean m
+re: fclean all
 
-.PHONY: m b bonus clean fclean re
+.PHONY: all b clean fclean re check_mandatory check_bonus

@@ -69,8 +69,7 @@ char	**copy_map(char **grid, int rows, int cols)
 			free(copy);
 			return (NULL);
 		}
-		strncpy(copy[i], grid[i], cols);
-		copy[i][cols] = '\0';
+		ft_strlcpy(copy[i], grid[i], cols);
 		i++;
 	}
 	return (copy);

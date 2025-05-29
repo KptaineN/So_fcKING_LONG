@@ -6,7 +6,7 @@
 /*   By: nkiefer <nkiefer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:02:35 by nkiefer           #+#    #+#             */
-/*   Updated: 2025/05/08 19:13:59 by nkiefer          ###   ########.fr       */
+/*   Updated: 2025/05/29 10:27:48 by nkiefer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	validate_player(int player_found)
 {
 	if (player_found != 1)
 	{
-		write(2, "Error\nMap need to content exactly one player.\n", 50);
+		write(2, "Error\nMap need to content exactly one player.\n", 46);
 		return (0);
 	}
 	return (1);
@@ -72,7 +72,7 @@ int	validate_exit(int exit_found)
 {
 	if (exit_found != 1)
 	{
-		write(2, "Error\nMap need to conteny exacly one exit.\n", 50);
+		write(2, "Error\nMap need to conteny exacly one exit.\n", 44);
 		return (0);
 	}
 	return (1);
@@ -82,7 +82,7 @@ int	validate_collectible(int collectible_found)
 {
 	if (collectible_found < 1)
 	{
-		write(2, "Error\nMap need to content one or more collectible.\n", 54);
+		write(2, "Error\nMap need to content one or more collectible.\n", 51);
 		return (0);
 	}
 	return (1);

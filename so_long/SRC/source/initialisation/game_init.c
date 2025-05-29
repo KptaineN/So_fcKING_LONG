@@ -6,7 +6,7 @@
 /*   By: nkiefer <nkiefer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:20:34 by nkiefer           #+#    #+#             */
-/*   Updated: 2025/05/08 20:28:03 by nkiefer          ###   ########.fr       */
+/*   Updated: 2025/05/29 10:28:03 by nkiefer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	load_and_validate_map(t_game *game, char *map_path)
 	read_map(map_path, game);
 	if (!game->grid)
 	{
-		write(2, "Error\nMap empty or unreadable.\n", 32);
+		write(2, "Error\nMap empty or unreadable.\n", 31);
 		free_resources(game);
 		exit(EXIT_FAILURE);
 	}
