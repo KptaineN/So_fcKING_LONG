@@ -3,7 +3,7 @@
 Ce projet consiste à développer un petit jeu en 2D en utilisant la miniLibX
 
 <p align="center">
-  <img src="so_long/assets/.gif/So_l_oS.gif" alt="Demo" width="300"/>
+  <img src="so_long/assets/.gif/So_l_oS.gif" alt="Demo" width="600"/>
 </p>
 
 ✨_____________________________________________________________________________________________________________✨ 
