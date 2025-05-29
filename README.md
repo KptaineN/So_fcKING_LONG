@@ -1,6 +1,6 @@
 ✨_____________________________________________________________________________________________________________✨ 
                                           
-  #                                             So_Long
+  ##So_Long
 
     
 Ce projet consiste à développer un petit jeu en 2D en utilisant la miniLibX
