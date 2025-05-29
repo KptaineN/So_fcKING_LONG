@@ -1,7 +1,4 @@
-✨_____________________________________________________________________________________________________________✨ 
-                                          
-  ##So_Long
-
+######################SO_long
     
 Ce projet consiste à développer un petit jeu en 2D en utilisant la miniLibX
 
@@ -9,12 +6,14 @@ Ce projet consiste à développer un petit jeu en 2D en utilisant la miniLibX
   <img src="so_long/assets/.gif/So_l_oS.gif" alt="Demo" width="300"/>
 </p>
 
+✨_____________________________________________________________________________________________________________✨ 
 
 ✔️ Compréhension et l'utilisation de miniLibX, 
 ✔️ Gestion des ressources graphiques, 
 ✔️ Structuration du code, 
 ✔️ Manipulation d'images,
 ✔️ Gestion des événements,
+✨_____________________________________________________________________________________________________________✨ 
 
 
 <p align="right">
